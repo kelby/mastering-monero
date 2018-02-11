@@ -30,11 +30,7 @@ xxx
 
 xxx
 
-## Coinbase Transaction
+#### Coinbase Transaction
 
 xxx
-
-
-
-
 
