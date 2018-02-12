@@ -66,6 +66,10 @@ xxx
 
 xxx
 
+#### 助记词 Mnemonic Seed
+
+xxx
+
 
 
 
