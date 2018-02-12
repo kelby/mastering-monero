@@ -94,6 +94,10 @@ xxx
 
 xxx
 
+#### Smart Mining
+
+xxx
+
 
 
 
