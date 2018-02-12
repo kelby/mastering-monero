@@ -98,6 +98,18 @@ xxx
 
 xxx
 
+#### 花费密钥 Spend Key
+
+xxx
+
+#### 隐藏地址 Stealth Address
+
+xxx
+
+#### Tail Emission
+
+xxxx
+
 
 
 
