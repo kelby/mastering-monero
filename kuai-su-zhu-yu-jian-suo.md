@@ -50,10 +50,6 @@ xxx
 
 xxx
 
-#### Floodfill
-
-xxx
-
 #### Fluffy Blocks
 
 xxx
@@ -93,8 +89,4 @@ xxx
 #### Ring Size
 
 xxx
-
-
-
-
 
