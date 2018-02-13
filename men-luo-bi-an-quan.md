@@ -1,7 +1,3 @@
-A Traceability Analysis of Monero's Blockchain
-
-A Traceability Analysis of Monero’s Blockchain
-
 ## A Traceability Analysis of Monero's Blockchain
 
 不可跟踪
