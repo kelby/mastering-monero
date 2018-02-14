@@ -14,4 +14,6 @@
 * [门罗币安全](men-luo-bi-an-quan.md)
 * [附录](fu-lu-1.md)
 * [CryptoNote](cryptonote.md)
+  * Features
+  * Inside
 
