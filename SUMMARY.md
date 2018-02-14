@@ -13,4 +13,5 @@
 * [挖矿与共识](wa-kuang-yu-gong-shi.md)
 * [门罗币安全](men-luo-bi-an-quan.md)
 * [附录](fu-lu-1.md)
+* [CryptoNote](cryptonote.md)
 
