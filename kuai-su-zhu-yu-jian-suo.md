@@ -108,7 +108,7 @@ xxx
 
 #### Tail Emission
 
-xxxx
+按照发行曲线发行货币总量后，每个块仍然会给予 0.6 XMR 的量做为奖励，以维持矿工热情。
 
 #### 交易解锁时间 Transaction Unlock Time
 
@@ -125,8 +125,4 @@ xxx
 #### 钱包 Wallet
 
 xxx
-
-
-
-
 
