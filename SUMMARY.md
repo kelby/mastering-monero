@@ -12,6 +12,7 @@
 * [区块链](qu-kuai-lian.md)
 * [挖矿与共识](wa-kuang-yu-gong-shi.md)
 * [门罗币安全](men-luo-bi-an-quan.md)
+  * [升级机制](men-luo-bi-an-quan/sheng-ji-ji-zhi.md)
 * [附录](fu-lu-1.md)
 * [CryptoNote](cryptonote.md)
   * [Features](cryptonote/features.md)
