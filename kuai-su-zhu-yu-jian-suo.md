@@ -112,7 +112,7 @@ xxx
 
 #### 交易解锁时间 Transaction Unlock Time
 
-xxx
+新块出现后，其所对应的门罗币需要等待一定时间才能使用。
 
 #### 交易 Transactions
 
