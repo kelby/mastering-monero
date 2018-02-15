@@ -147,6 +147,8 @@ export_raw_multisig_tx
 help
 ```
 
+共68条命令。
+
 #### 软件 - RPC远程客户端
 
 xxx
