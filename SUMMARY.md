@@ -19,9 +19,9 @@
   * [算法背景](wa-kuang-yu-gong-shi/suan-fa-bei-jing.md)
 * [门罗币安全](men-luo-bi-an-quan.md)
   * [升级机制](men-luo-bi-an-quan/sheng-ji-ji-zhi.md)
-* [附录](fu-lu-1.md)
 * [CryptoNote](cryptonote.md)
   * [Features](cryptonote/features.md)
   * [Inside](cryptonote/inside.md)
   * [Wiki](cryptonote/wiki.md)
+* [附录](fu-lu-1.md)
 
