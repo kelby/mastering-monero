@@ -72,6 +72,8 @@ sign_multisig
 submit_multisig
 ```
 
+共 67 条命令。
+
 #### 钱包 - CMD本地客户端
 
 xxx
@@ -147,7 +149,7 @@ export_raw_multisig_tx
 help
 ```
 
-共68条命令。
+共 68 条命令。
 
 #### 软件 - RPC远程客户端
 
