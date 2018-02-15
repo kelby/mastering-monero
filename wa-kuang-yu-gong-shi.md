@@ -24,5 +24,5 @@ cn\_slow\_hash
 
 #### keccak
 
-xxx
+cn\_fast\_hash
 
