@@ -1,5 +1,14 @@
 ## 环机密交易
 
+#### RingCT protocol
+
+* genRct
+* verRct
+
+* decodeRct
+
+#### 示例
+
 ```
 H_ct = RingCT.getHForCT()
 print("H", H_ct)
