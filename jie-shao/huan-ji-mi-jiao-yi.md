@@ -40,7 +40,6 @@ RingCT.ComputeReceivedAmount(pe, sr, MiniNero.addScalars(ss, skb), Cib)
 
 print("Finding received amount corresponding to Cic")
 RingCT.ComputeReceivedAmount(pe, sr, MiniNero.addScalars(ss, skc), Cic)
-
 ```
 
 
