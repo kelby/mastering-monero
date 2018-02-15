@@ -24,4 +24,5 @@
   * [Inside](cryptonote/inside.md)
   * [Wiki](cryptonote/wiki.md)
 * [附录](fu-lu-1.md)
+* [数据存储](shu-ju-cun-chu.md)
 
