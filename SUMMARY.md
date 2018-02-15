@@ -4,6 +4,10 @@
 * [前言](chapter1.md)
 * [快速术语检索](kuai-su-zhu-yu-jian-suo.md)
 * [介绍](jie-shao.md)
+  * [环签名](jie-shao/huan-qian-ming.md)
+  * [隐藏地址](jie-shao/huan-qian-ming/yin-cang-di-zhi.md)
+  * [环机密交易](jie-shao/huan-ji-mi-jiao-yi.md)
+  * [密钥镜像](jie-shao/mi-yao-jing-xiang.md)
 * [门罗币的原理](men-luo-bi-de-yuan-li.md)
 * [门罗币客户端](men-luo-bi-ke-hu-duan.md)
 * [密钥、地址、钱包](mi-yao-3001-di-zhi-3001-qian-bao.md)
@@ -11,12 +15,13 @@
 * [门罗币网络](men-luo-bi-wang-luo.md)
 * [区块链](qu-kuai-lian.md)
 * [挖矿与共识](wa-kuang-yu-gong-shi.md)
-  * 算法介绍
-  * 算法背景
+  * [算法介绍](wa-kuang-yu-gong-shi/suan-fa-jie-shao.md)
+  * [算法背景](wa-kuang-yu-gong-shi/suan-fa-bei-jing.md)
 * [门罗币安全](men-luo-bi-an-quan.md)
   * [升级机制](men-luo-bi-an-quan/sheng-ji-ji-zhi.md)
 * [附录](fu-lu-1.md)
 * [CryptoNote](cryptonote.md)
   * [Features](cryptonote/features.md)
   * [Inside](cryptonote/inside.md)
+  * [Wiki](cryptonote/wiki.md)
 
