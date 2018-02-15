@@ -159,6 +159,50 @@ xxx
 
 xxx
 
+```
+help
+print_height
+print_pl
+print_pl_stats
+print_cn
+print_bc
+print_block
+print_tx
+is_key_image_spent
+start_mining
+stop_mining
+print_pool
+print_pool_sh
+print_pool_stats
+show_hr
+hide_hr
+save
+set_log
+diff
+status
+stop_daemon
+exit
+print_status
+limit
+limit_up
+limit_down
+out_peers
+start_save_graph
+stop_save_graph
+hard_fork_info
+bans
+ban
+unban
+flush_txpool
+output_histogram
+print_coinbase_tx_sum
+alt_chain_info
+bc_dyn_stats
+update
+relay_tx
+sync_info
+```
+
 #### GUI客户端
 
 xxx
