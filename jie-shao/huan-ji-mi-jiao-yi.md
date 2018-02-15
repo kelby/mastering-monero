@@ -33,7 +33,7 @@ pk = [[P1, P2], [MiniNero.subKeys(Ca, MiniNero.addKeys(Cb, Cc)), MiniNero.subKey
 
 II, cc, ssVal = MLSAG.MLSAG_Sign(pk, sk, ind)
 
-print("Sig verified?", MLSAG.MLSAG_Ver(pk, II, cc, ssVal) )
+print("Sig verified?", MLSAG.MLSAG_Ver(pk, II, cc, ssVal))
 
 print("Finding received amount corresponding to Cib")
 RingCT.ComputeReceivedAmount(pe, sr, MiniNero.addScalars(ss, skb), Cib)
