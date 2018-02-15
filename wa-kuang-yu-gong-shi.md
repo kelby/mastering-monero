@@ -4,29 +4,25 @@ cn\_slow\_hash
 
 #### AESB
 
-xxx
+对称加密，Advanced Encryption Standard，缩写：AES
 
 #### blake256
 
-xxx
+4选1
 
 #### groestl
 
-xxx
+4选1
 
 #### jh
 
-xxx
+4选1
 
 #### skein
 
-xxx
+4选1
 
 #### keccak
 
 xxx
-
-
-
-
 
