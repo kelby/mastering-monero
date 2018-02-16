@@ -505,5 +505,12 @@ namespace cryptonote
   };
 ```
 
+## cryptonote
+
+```cpp
+/** a pair of <transaction hash, output index>, typedef for convenience */
+typedef std::pair<crypto::hash, uint64_t> tx_out_index;
+```
+
 
 
