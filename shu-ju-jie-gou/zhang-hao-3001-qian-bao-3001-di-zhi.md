@@ -15,5 +15,21 @@
   };
 ```
 
+```
+  struct public_address_outer_blob
+  {
+    uint8_t m_ver;
+    account_public_address m_address;
+    uint8_t check_sum;
+  };
+  struct public_integrated_address_outer_blob
+  {
+    uint8_t m_ver;
+    account_public_address m_address;
+    crypto::hash8 payment_id;
+    uint8_t check_sum;
+  };
+```
+
 
 
