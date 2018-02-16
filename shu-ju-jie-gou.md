@@ -278,5 +278,38 @@ typedef boost::variant<txin_gen, txin_to_script, txin_to_scripthash, txin_to_key
   };
 ```
 
+## txout\_target\_v
+
+```
+typedef boost::variant<txout_to_script, txout_to_scripthash, txout_to_key> txout_target_v;
+```
+
+## outputs
+
+```
+  struct txout_to_script
+  {
+    std::vector<crypto::public_key> keys;
+    std::vector<uint8_t> script;
+
+    BEGIN_SERIALIZE_OBJECT()
+      FIELD(keys)
+      FIELD(script)
+    END_SERIALIZE()
+  };
+
+  struct txout_to_scripthash
+  {
+    crypto::hash hash;
+  };
+
+  struct txout_to_key
+  {
+    txout_to_key() { }
+    txout_to_key(const crypto::public_key &_key) : key(_key) { }
+    crypto::public_key key;
+  };
+```
+
 
 
