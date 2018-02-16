@@ -311,5 +311,149 @@ typedef boost::variant<txout_to_script, txout_to_scripthash, txout_to_key> txout
   };
 ```
 
+```
+namespace cryptonote
+{
+  struct tx_extra_padding
+  {
+    size_t size;
+
+    // load
+    template <template <bool> class Archive>
+    bool do_serialize(Archive<false>& ar)
+    {
+      // size - 1 - because of variant tag
+      for (size = 1; size <= TX_EXTRA_PADDING_MAX_COUNT; ++size)
+      {
+        std::ios_base::iostate state = ar.stream().rdstate();
+        bool eof = EOF == ar.stream().peek();
+        ar.stream().clear(state);
+
+        if (eof)
+          break;
+
+        uint8_t zero;
+        if (!::do_serialize(ar, zero))
+          return false;
+
+        if (0 != zero)
+          return false;
+      }
+
+      return size <= TX_EXTRA_PADDING_MAX_COUNT;
+    }
+
+    // store
+    template <template <bool> class Archive>
+    bool do_serialize(Archive<true>& ar)
+    {
+      if(TX_EXTRA_PADDING_MAX_COUNT < size)
+        return false;
+
+      // i = 1 - because of variant tag
+      for (size_t i = 1; i < size; ++i)
+      {
+        uint8_t zero = 0;
+        if (!::do_serialize(ar, zero))
+          return false;
+      }
+      return true;
+    }
+  };
+
+  struct tx_extra_pub_key
+  {
+    crypto::public_key pub_key;
+
+    BEGIN_SERIALIZE()
+      FIELD(pub_key)
+    END_SERIALIZE()
+  };
+
+  struct tx_extra_nonce
+  {
+    std::string nonce;
+
+    BEGIN_SERIALIZE()
+      FIELD(nonce)
+      if(TX_EXTRA_NONCE_MAX_COUNT < nonce.size()) return false;
+    END_SERIALIZE()
+  };
+
+  struct tx_extra_merge_mining_tag
+  {
+    struct serialize_helper
+    {
+      tx_extra_merge_mining_tag& mm_tag;
+
+      serialize_helper(tx_extra_merge_mining_tag& mm_tag_) : mm_tag(mm_tag_)
+      {
+      }
+
+      BEGIN_SERIALIZE()
+        VARINT_FIELD_N("depth", mm_tag.depth)
+        FIELD_N("merkle_root", mm_tag.merkle_root)
+      END_SERIALIZE()
+    };
+
+    size_t depth;
+    crypto::hash merkle_root;
+
+    // load
+    template <template <bool> class Archive>
+    bool do_serialize(Archive<false>& ar)
+    {
+      std::string field;
+      if(!::do_serialize(ar, field))
+        return false;
+
+      std::istringstream iss(field);
+      binary_archive<false> iar(iss);
+      serialize_helper helper(*this);
+      return ::serialization::serialize(iar, helper);
+    }
+
+    // store
+    template <template <bool> class Archive>
+    bool do_serialize(Archive<true>& ar)
+    {
+      std::ostringstream oss;
+      binary_archive<true> oar(oss);
+      serialize_helper helper(*this);
+      if(!::do_serialize(oar, helper))
+        return false;
+
+      std::string field = oss.str();
+      return ::serialization::serialize(ar, field);
+    }
+  };
+
+  // per-output additional tx pubkey for multi-destination transfers involving at least one subaddress
+  struct tx_extra_additional_pub_keys
+  {
+    std::vector<crypto::public_key> data;
+
+    BEGIN_SERIALIZE()
+      FIELD(data)
+    END_SERIALIZE()
+  };
+
+  struct tx_extra_mysterious_minergate
+  {
+    std::string data;
+
+    BEGIN_SERIALIZE()
+      FIELD(data)
+    END_SERIALIZE()
+  };
+
+  // tx_extra_field format, except tx_extra_padding and tx_extra_pub_key:
+  //   varint tag;
+  //   varint size;
+  //   varint data[];
+  typedef boost::variant<tx_extra_padding, tx_extra_pub_key, tx_extra_nonce, tx_extra_merge_mining_tag, tx_extra_additional_pub_keys, tx_extra_mysterious_minergate> tx_extra_field;
+}
+```
+
 
 
