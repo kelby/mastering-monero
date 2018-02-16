@@ -42,5 +42,45 @@ namespace cryptonote
   typedef std::set<tx_by_fee_and_receive_time_entry, txCompare> sorted_tx_container;
 ```
 
+```
+typedef struct mdb_block_info
+{
+  uint64_t bi_height;
+  uint64_t bi_timestamp;
+  uint64_t bi_coins;
+  uint64_t bi_size; // a size_t really but we need 32-bit compat
+  difficulty_type bi_diff;
+  crypto::hash bi_hash;
+} mdb_block_info;
+
+typedef struct blk_height {
+    crypto::hash bh_hash;
+    uint64_t bh_height;
+} blk_height;
+
+typedef struct txindex {
+    crypto::hash key;
+    tx_data_t data;
+} txindex;
+
+typedef struct pre_rct_outkey {
+    uint64_t amount_index;
+    uint64_t output_id;
+    pre_rct_output_data_t data;
+} pre_rct_outkey;
+
+typedef struct outkey {
+    uint64_t amount_index;
+    uint64_t output_id;
+    output_data_t data;
+} outkey;
+
+typedef struct outtx {
+    uint64_t output_id;
+    crypto::hash tx_hash;
+    uint64_t local_index;
+} outtx;
+```
+
 
 
