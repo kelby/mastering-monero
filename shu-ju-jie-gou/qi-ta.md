@@ -77,5 +77,10 @@ namespace cryptonote
 }
 ```
 
+```
+  typedef std::pair<std::pair<double, std::time_t>, crypto::hash> tx_by_fee_and_receive_time_entry;
+  typedef std::set<tx_by_fee_and_receive_time_entry, txCompare> sorted_tx_container;
+```
+
 
 
