@@ -40,5 +40,9 @@ struct txpool_tx_meta_t
 };
 ```
 
+```
+typedef std::uint64_t difficulty_type;
+```
+
 
 
