@@ -55,13 +55,6 @@
 ```
 
 ```
-namespace cryptonote
-{
-  typedef std::string blobdata;
-}
-```
-
-```
 /* From fe.h */
 
 typedef int32_t fe[10];
@@ -447,6 +440,12 @@ typedef struct {
 
 ```
   typedef std::vector<crypto::signature> ring_signature;
+```
+
+```
+{
+  typedef std::string blobdata;
+}
 ```
 
 
