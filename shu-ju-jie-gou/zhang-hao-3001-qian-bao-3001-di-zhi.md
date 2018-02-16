@@ -31,5 +31,32 @@
   };
 ```
 
+```
+  struct address_parse_info
+  {
+    account_public_address address;
+    bool is_subaddress;
+    bool has_payment_id;
+    crypto::hash8 payment_id;
+  };
+```
+
+```
+  struct integrated_address {
+    account_public_address adr;
+    crypto::hash8 payment_id;
+
+    BEGIN_SERIALIZE_OBJECT()
+      FIELD(adr)
+      FIELD(payment_id)
+    END_SERIALIZE()
+
+    BEGIN_KV_SERIALIZE_MAP()
+      KV_SERIALIZE(adr)
+      KV_SERIALIZE(payment_id)
+    END_KV_SERIALIZE_MAP()
+  };
+```
+
 
 
