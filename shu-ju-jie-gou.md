@@ -224,5 +224,59 @@ typedef boost::variant<txin_gen, txin_to_script, txin_to_scripthash, txin_to_key
   };
 ```
 
+## inputs
+
+```
+  struct txin_gen
+  {
+    size_t height;
+
+    BEGIN_SERIALIZE_OBJECT()
+      VARINT_FIELD(height)
+    END_SERIALIZE()
+  };
+
+  struct txin_to_script
+  {
+    crypto::hash prev;
+    size_t prevout;
+    std::vector<uint8_t> sigset;
+
+    BEGIN_SERIALIZE_OBJECT()
+      FIELD(prev)
+      VARINT_FIELD(prevout)
+      FIELD(sigset)
+    END_SERIALIZE()
+  };
+
+  struct txin_to_scripthash
+  {
+    crypto::hash prev;
+    size_t prevout;
+    txout_to_script script;
+    std::vector<uint8_t> sigset;
+
+    BEGIN_SERIALIZE_OBJECT()
+      FIELD(prev)
+      VARINT_FIELD(prevout)
+      FIELD(script)
+      FIELD(sigset)
+    END_SERIALIZE()
+  };
+
+  struct txin_to_key
+  {
+    uint64_t amount;
+    std::vector<uint64_t> key_offsets;
+    crypto::key_image k_image;      // double spending protection
+
+    BEGIN_SERIALIZE_OBJECT()
+      VARINT_FIELD(amount)
+      FIELD(key_offsets)
+      FIELD(k_image)
+    END_SERIALIZE()
+  };
+```
+
 
 
