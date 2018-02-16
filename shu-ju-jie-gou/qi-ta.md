@@ -4,7 +4,7 @@
 typedef std::uint64_t difficulty_type;
 ```
 
-```
+```cpp
 namespace cryptonote
 {
   /************************************************************************/
