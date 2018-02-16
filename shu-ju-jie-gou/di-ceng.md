@@ -62,7 +62,6 @@ namespace cryptonote
 ```
 
 ```
-
 /* From fe.h */
 
 typedef int32_t fe[10];
@@ -444,6 +443,10 @@ typedef struct {
       return k;
     }
   };
+```
+
+```
+  typedef std::vector<crypto::signature> ring_signature;
 ```
 
 
