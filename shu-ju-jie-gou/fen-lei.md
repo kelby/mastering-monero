@@ -1,11 +1,3 @@
-## 区块链
-
-## 账号、钱包、地址
-
-## 底层
-
-## 其它
-
 ## block
 
 ```
@@ -318,8 +310,6 @@ typedef boost::variant<txout_to_script, txout_to_scripthash, txout_to_key> txout
     crypto::public_key key;
   };
 ```
-
-
 
 
 
