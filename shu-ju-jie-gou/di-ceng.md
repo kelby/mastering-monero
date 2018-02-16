@@ -54,5 +54,12 @@
   };
 ```
 
+```
+namespace cryptonote
+{
+  typedef std::string blobdata;
+}
+```
+
 
 
