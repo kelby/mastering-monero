@@ -351,7 +351,7 @@ namespace cryptonote
         FIELD(cache_data)
       END_SERIALIZE()
     };
-    
+
     // GUI Address book
     struct address_book_row
     {
