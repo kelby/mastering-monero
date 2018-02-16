@@ -455,5 +455,55 @@ namespace cryptonote
 }
 ```
 
+```
+  struct tx_source_entry
+  {
+    typedef std::pair<uint64_t, rct::ctkey> output_entry;
+
+    std::vector<output_entry> outputs;  //index + key + optional ringct commitment
+    size_t real_output;                 //index in outputs vector of real output_entry
+    crypto::public_key real_out_tx_key; //incoming real tx public key
+    std::vector<crypto::public_key> real_out_additional_tx_keys; //incoming real tx additional public keys
+    size_t real_output_in_tx_index;     //index in transaction outputs vector
+    uint64_t amount;                    //money
+    bool rct;                           //true if the output is rct
+    rct::key mask;                      //ringct amount mask
+    rct::multisig_kLRki multisig_kLRki; //multisig info
+
+    void push_output(uint64_t idx, const crypto::public_key &k, uint64_t amount) { outputs.push_back(std::make_pair(idx, rct::ctkey({rct::pk2rct(k), rct::zeroCommit(amount)}))); }
+
+    BEGIN_SERIALIZE_OBJECT()
+      FIELD(outputs)
+      FIELD(real_output)
+      FIELD(real_out_tx_key)
+      FIELD(real_out_additional_tx_keys)
+      FIELD(real_output_in_tx_index)
+      FIELD(amount)
+      FIELD(rct)
+      FIELD(mask)
+      FIELD(multisig_kLRki)
+
+      if (real_output >= outputs.size())
+        return false;
+    END_SERIALIZE()
+  };
+
+  struct tx_destination_entry
+  {
+    uint64_t amount;                    //money
+    account_public_address addr;        //destination address
+    bool is_subaddress;
+
+    tx_destination_entry() : amount(0), addr(AUTO_VAL_INIT(addr)), is_subaddress(false) { }
+    tx_destination_entry(uint64_t a, const account_public_address &ad, bool is_subaddress) : amount(a), addr(ad), is_subaddress(is_subaddress) { }
+
+    BEGIN_SERIALIZE_OBJECT()
+      VARINT_FIELD(amount)
+      FIELD(addr)
+      FIELD(is_subaddress)
+    END_SERIALIZE()
+  };
+```
+
 
 
