@@ -1,4 +1,4 @@
-## Block
+## block
 
 ```
   struct block: public block_header
@@ -28,6 +28,27 @@
       FIELDS(*static_cast<block_header *>(this))
       FIELD(miner_tx)
       FIELD(tx_hashes)
+    END_SERIALIZE()
+  };
+```
+
+## block\_header
+
+```
+  struct block_header
+  {
+    uint8_t major_version;
+    uint8_t minor_version;  // now used as a voting mechanism, rather than how this particular block is built
+    uint64_t timestamp;
+    crypto::hash  prev_id;
+    uint32_t nonce;
+
+    BEGIN_SERIALIZE()
+      VARINT_FIELD(major_version)
+      VARINT_FIELD(minor_version)
+      VARINT_FIELD(timestamp)
+      FIELD(prev_id)
+      FIELD(nonce)
     END_SERIALIZE()
   };
 
