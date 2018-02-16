@@ -201,5 +201,11 @@
   };
 ```
 
+## txin\_v
+
+```
+typedef boost::variant<txin_gen, txin_to_script, txin_to_scripthash, txin_to_key> txin_v;
+```
+
 
 
