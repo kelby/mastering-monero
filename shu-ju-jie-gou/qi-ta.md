@@ -4,7 +4,7 @@
 typedef std::pair<crypto::hash, uint64_t> tx_out_index;
 ```
 
-```
+```cpp
 struct output_data_t
 {
   crypto::public_key pubkey;       //!< the output's public key (for spend verification)
