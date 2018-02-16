@@ -140,12 +140,12 @@ namespace cryptonote
         key64 s1;
         key ee;
     };
-  
+
     //Container for precomp
     struct geDsmp {
         ge_dsmp k;
     };
-    
+
     //just contains the necessary keys to represent MLSAG sigs
     //c.f. http://eprint.iacr.org/2015/1098
     struct mgSig {
@@ -385,6 +385,23 @@ namespace cryptonote
     struct rctSig: public rctSigBase {
         rctSigPrunable p;
     };
+```
+
+## cryptonote
+
+```
+  struct keypair
+  {
+    crypto::public_key pub;
+    crypto::secret_key sec;
+
+    static inline keypair generate()
+    {
+      keypair k;
+      generate_keys(k.pub, k.sec);
+      return k;
+    }
+  };
 ```
 
 
