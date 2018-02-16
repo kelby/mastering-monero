@@ -169,7 +169,36 @@
   private:
     static size_t get_signature_size(const txin_v& tx_in);
   };
+```
 
+## transaction\_prefix
+
+```
+  class transaction_prefix
+  {
+
+  public:
+    // tx information
+    size_t   version;
+    uint64_t unlock_time;  //number of block (or time), used as a limitation like: spend this tx not early then block/time
+
+    std::vector<txin_v> vin;
+    std::vector<tx_out> vout;
+    //extra
+    std::vector<uint8_t> extra;
+
+    BEGIN_SERIALIZE()
+      VARINT_FIELD(version)
+      if(version == 0 || CURRENT_TRANSACTION_VERSION < version) return false;
+      VARINT_FIELD(unlock_time)
+      FIELD(vin)
+      FIELD(vout)
+      FIELD(extra)
+    END_SERIALIZE()
+
+  public:
+    transaction_prefix(){}
+  };
 ```
 
 
