@@ -58,5 +58,37 @@
   };
 ```
 
+```
+  struct subaddress_receive_info
+  {
+    subaddress_index index;
+    crypto::key_derivation derivation;
+  };
+```
+
+```
+namespace cryptonote
+{
+  struct subaddress_index
+  {
+    uint32_t major;
+    uint32_t minor;
+    bool operator==(const subaddress_index& rhs) const { return !memcmp(this, &rhs, sizeof(subaddress_index)); }
+    bool operator!=(const subaddress_index& rhs) const { return !(*this == rhs); }
+    bool is_zero() const { return major == 0 && minor == 0; }
+
+    BEGIN_SERIALIZE_OBJECT()
+      FIELD(major)
+      FIELD(minor)
+    END_SERIALIZE()
+
+    BEGIN_KV_SERIALIZE_MAP()
+      KV_SERIALIZE(major)
+      KV_SERIALIZE(minor)
+    END_KV_SERIALIZE_MAP()
+  };
+}
+```
+
 
 
