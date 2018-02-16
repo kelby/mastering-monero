@@ -82,7 +82,7 @@ typedef struct outtx {
 } outtx;
 ```
 
-```
+```cpp
 struct pre_rct_output_data_t
 {
   crypto::public_key pubkey;       //!< the output's public key (for spend verification)
