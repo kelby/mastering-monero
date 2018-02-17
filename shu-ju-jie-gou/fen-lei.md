@@ -113,10 +113,6 @@ typedef boost::variant<txin_gen, txin_to_script, txin_to_scripthash, txin_to_key
   struct txin_gen
   {
     size_t height;
-
-    BEGIN_SERIALIZE_OBJECT()
-      VARINT_FIELD(height)
-    END_SERIALIZE()
   };
 
   struct txin_to_script
@@ -124,12 +120,6 @@ typedef boost::variant<txin_gen, txin_to_script, txin_to_scripthash, txin_to_key
     crypto::hash prev;
     size_t prevout;
     std::vector<uint8_t> sigset;
-
-    BEGIN_SERIALIZE_OBJECT()
-      FIELD(prev)
-      VARINT_FIELD(prevout)
-      FIELD(sigset)
-    END_SERIALIZE()
   };
 
   struct txin_to_scripthash
@@ -138,13 +128,6 @@ typedef boost::variant<txin_gen, txin_to_script, txin_to_scripthash, txin_to_key
     size_t prevout;
     txout_to_script script;
     std::vector<uint8_t> sigset;
-
-    BEGIN_SERIALIZE_OBJECT()
-      FIELD(prev)
-      VARINT_FIELD(prevout)
-      FIELD(script)
-      FIELD(sigset)
-    END_SERIALIZE()
   };
 
   struct txin_to_key
@@ -152,12 +135,6 @@ typedef boost::variant<txin_gen, txin_to_script, txin_to_scripthash, txin_to_key
     uint64_t amount;
     std::vector<uint64_t> key_offsets;
     crypto::key_image k_image;      // double spending protection
-
-    BEGIN_SERIALIZE_OBJECT()
-      VARINT_FIELD(amount)
-      FIELD(key_offsets)
-      FIELD(k_image)
-    END_SERIALIZE()
   };
 ```
 
@@ -174,11 +151,6 @@ typedef boost::variant<txout_to_script, txout_to_scripthash, txout_to_key> txout
   {
     std::vector<crypto::public_key> keys;
     std::vector<uint8_t> script;
-
-    BEGIN_SERIALIZE_OBJECT()
-      FIELD(keys)
-      FIELD(script)
-    END_SERIALIZE()
   };
 
   struct txout_to_scripthash
@@ -247,20 +219,11 @@ namespace cryptonote
   struct tx_extra_pub_key
   {
     crypto::public_key pub_key;
-
-    BEGIN_SERIALIZE()
-      FIELD(pub_key)
-    END_SERIALIZE()
   };
 
   struct tx_extra_nonce
   {
     std::string nonce;
-
-    BEGIN_SERIALIZE()
-      FIELD(nonce)
-      if(TX_EXTRA_NONCE_MAX_COUNT < nonce.size()) return false;
-    END_SERIALIZE()
   };
 
   struct tx_extra_merge_mining_tag
@@ -268,15 +231,6 @@ namespace cryptonote
     struct serialize_helper
     {
       tx_extra_merge_mining_tag& mm_tag;
-
-      serialize_helper(tx_extra_merge_mining_tag& mm_tag_) : mm_tag(mm_tag_)
-      {
-      }
-
-      BEGIN_SERIALIZE()
-        VARINT_FIELD_N("depth", mm_tag.depth)
-        FIELD_N("merkle_root", mm_tag.merkle_root)
-      END_SERIALIZE()
     };
 
     size_t depth;
