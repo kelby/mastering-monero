@@ -33,14 +33,6 @@
     uint64_t timestamp;
     crypto::hash  prev_id;
     uint32_t nonce;
-
-    BEGIN_SERIALIZE()
-      VARINT_FIELD(major_version)
-      VARINT_FIELD(minor_version)
-      VARINT_FIELD(timestamp)
-      FIELD(prev_id)
-      FIELD(nonce)
-    END_SERIALIZE()
   };
 ```
 
