@@ -20,15 +20,6 @@
 
     // hash cash
     mutable crypto::hash hash;
-
-    BEGIN_SERIALIZE_OBJECT()
-      if (!typename Archive<W>::is_saving())
-        set_hash_valid(false);
-
-      FIELDS(*static_cast<block_header *>(this))
-      FIELD(miner_tx)
-      FIELD(tx_hashes)
-    END_SERIALIZE()
   };
 ```
 
