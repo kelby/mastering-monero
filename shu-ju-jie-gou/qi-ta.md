@@ -42,7 +42,7 @@ namespace cryptonote
   typedef std::set<tx_by_fee_and_receive_time_entry, txCompare> sorted_tx_container;
 ```
 
-```
+```cpp
 typedef struct mdb_block_info
 {
   uint64_t bi_height;
