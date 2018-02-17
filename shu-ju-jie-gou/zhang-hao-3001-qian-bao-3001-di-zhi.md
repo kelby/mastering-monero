@@ -5,13 +5,6 @@
     crypto::secret_key   m_spend_secret_key;
     crypto::secret_key   m_view_secret_key;
     std::vector<crypto::secret_key> m_multisig_keys;
-
-    BEGIN_KV_SERIALIZE_MAP()
-      KV_SERIALIZE(m_account_address)
-      KV_SERIALIZE_VAL_POD_AS_BLOB_FORCE(m_spend_secret_key)
-      KV_SERIALIZE_VAL_POD_AS_BLOB_FORCE(m_view_secret_key)
-      KV_SERIALIZE_CONTAINER_POD_AS_BLOB(m_multisig_keys)
-    END_KV_SERIALIZE_MAP()
   };
 ```
 
@@ -45,16 +38,6 @@
   struct integrated_address {
     account_public_address adr;
     crypto::hash8 payment_id;
-
-    BEGIN_SERIALIZE_OBJECT()
-      FIELD(adr)
-      FIELD(payment_id)
-    END_SERIALIZE()
-
-    BEGIN_KV_SERIALIZE_MAP()
-      KV_SERIALIZE(adr)
-      KV_SERIALIZE(payment_id)
-    END_KV_SERIALIZE_MAP()
   };
 ```
 
@@ -76,16 +59,6 @@ namespace cryptonote
     bool operator==(const subaddress_index& rhs) const { return !memcmp(this, &rhs, sizeof(subaddress_index)); }
     bool operator!=(const subaddress_index& rhs) const { return !(*this == rhs); }
     bool is_zero() const { return major == 0 && minor == 0; }
-
-    BEGIN_SERIALIZE_OBJECT()
-      FIELD(major)
-      FIELD(minor)
-    END_SERIALIZE()
-
-    BEGIN_KV_SERIALIZE_MAP()
-      KV_SERIALIZE(major)
-      KV_SERIALIZE(minor)
-    END_KV_SERIALIZE_MAP()
   };
 }
 ```
@@ -100,21 +73,11 @@ namespace cryptonote
         rct::key m_L;
         rct::key m_R;
 
-        BEGIN_SERIALIZE_OBJECT()
-          FIELD(m_L)
-          FIELD(m_R)
-        END_SERIALIZE()
       };
 
       crypto::public_key m_signer;
       std::vector<LR> m_LR;
       std::vector<crypto::key_image> m_partial_key_images; // one per key the participant has
-
-      BEGIN_SERIALIZE_OBJECT()
-        FIELD(m_signer)
-        FIELD(m_LR)
-        FIELD(m_partial_key_images)
-      END_SERIALIZE()
     };
 
     struct tx_scan_info_t
