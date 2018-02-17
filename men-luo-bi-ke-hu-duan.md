@@ -1,12 +1,8 @@
 #### 钱包 - RPC远程客户端
 
-xxx
-
 ```
 get_balance
 get_address
-getbalance
-getaddress
 create_address
 label_address
 get_accounts
