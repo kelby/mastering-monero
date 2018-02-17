@@ -104,13 +104,6 @@ typedef boost::variant<txin_gen, txin_to_script, txin_to_scripthash, txin_to_key
   {
     uint64_t amount;
     txout_target_v target;
-
-    BEGIN_SERIALIZE_OBJECT()
-      VARINT_FIELD(amount)
-      FIELD(target)
-    END_SERIALIZE()
-
-
   };
 ```
 
