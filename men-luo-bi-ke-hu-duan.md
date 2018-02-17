@@ -211,8 +211,6 @@ get_txpool_backlog
 
 #### 软件 - CMD本地客户端
 
-xxx
-
 ```
 help
 print_height
