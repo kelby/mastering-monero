@@ -13,7 +13,6 @@ tag_accounts
 untag_accounts
 set_account_tag_description
 get_height
-getheight
 transfer
 transfer_split
 sweep_dust
