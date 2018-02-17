@@ -71,8 +71,6 @@ submit_multisig
 
 #### 钱包 - CMD本地客户端
 
-xxx
-
 ```
 start_mining
 stop_mining
@@ -147,8 +145,6 @@ help
 共 68 条命令。
 
 #### 软件 - RPC远程客户端
-
-xxx
 
 ```
 get_height
