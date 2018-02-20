@@ -106,13 +106,6 @@ typedef struct {
     //  but uses unsigned chars,
     //  also includes an operator for accessing the i'th byte.
     struct key {
-        unsigned char & operator[](int i) {
-            return bytes[i];
-        }
-        unsigned char operator[](int i) const {
-            return bytes[i];
-        }
-        bool operator==(const key &k) const { return !memcmp(bytes, k.bytes, sizeof(bytes)); }
         unsigned char bytes[32];
     };
     typedef std::vector<key> keyV; //vector of keys
