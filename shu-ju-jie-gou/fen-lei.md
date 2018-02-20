@@ -172,48 +172,6 @@ namespace cryptonote
   struct tx_extra_padding
   {
     size_t size;
-
-    // load
-    template <template <bool> class Archive>
-    bool do_serialize(Archive<false>& ar)
-    {
-      // size - 1 - because of variant tag
-      for (size = 1; size <= TX_EXTRA_PADDING_MAX_COUNT; ++size)
-      {
-        std::ios_base::iostate state = ar.stream().rdstate();
-        bool eof = EOF == ar.stream().peek();
-        ar.stream().clear(state);
-
-        if (eof)
-          break;
-
-        uint8_t zero;
-        if (!::do_serialize(ar, zero))
-          return false;
-
-        if (0 != zero)
-          return false;
-      }
-
-      return size <= TX_EXTRA_PADDING_MAX_COUNT;
-    }
-
-    // store
-    template <template <bool> class Archive>
-    bool do_serialize(Archive<true>& ar)
-    {
-      if(TX_EXTRA_PADDING_MAX_COUNT < size)
-        return false;
-
-      // i = 1 - because of variant tag
-      for (size_t i = 1; i < size; ++i)
-      {
-        uint8_t zero = 0;
-        if (!::do_serialize(ar, zero))
-          return false;
-      }
-      return true;
-    }
   };
 
   struct tx_extra_pub_key
@@ -235,53 +193,17 @@ namespace cryptonote
 
     size_t depth;
     crypto::hash merkle_root;
-
-    // load
-    template <template <bool> class Archive>
-    bool do_serialize(Archive<false>& ar)
-    {
-      std::string field;
-      if(!::do_serialize(ar, field))
-        return false;
-
-      std::istringstream iss(field);
-      binary_archive<false> iar(iss);
-      serialize_helper helper(*this);
-      return ::serialization::serialize(iar, helper);
-    }
-
-    // store
-    template <template <bool> class Archive>
-    bool do_serialize(Archive<true>& ar)
-    {
-      std::ostringstream oss;
-      binary_archive<true> oar(oss);
-      serialize_helper helper(*this);
-      if(!::do_serialize(oar, helper))
-        return false;
-
-      std::string field = oss.str();
-      return ::serialization::serialize(ar, field);
-    }
   };
 
   // per-output additional tx pubkey for multi-destination transfers involving at least one subaddress
   struct tx_extra_additional_pub_keys
   {
     std::vector<crypto::public_key> data;
-
-    BEGIN_SERIALIZE()
-      FIELD(data)
-    END_SERIALIZE()
   };
 
   struct tx_extra_mysterious_minergate
   {
     std::string data;
-
-    BEGIN_SERIALIZE()
-      FIELD(data)
-    END_SERIALIZE()
   };
 
   // tx_extra_field format, except tx_extra_padding and tx_extra_pub_key:
@@ -308,21 +230,6 @@ namespace cryptonote
     rct::multisig_kLRki multisig_kLRki; //multisig info
 
     void push_output(uint64_t idx, const crypto::public_key &k, uint64_t amount) { outputs.push_back(std::make_pair(idx, rct::ctkey({rct::pk2rct(k), rct::zeroCommit(amount)}))); }
-
-    BEGIN_SERIALIZE_OBJECT()
-      FIELD(outputs)
-      FIELD(real_output)
-      FIELD(real_out_tx_key)
-      FIELD(real_out_additional_tx_keys)
-      FIELD(real_output_in_tx_index)
-      FIELD(amount)
-      FIELD(rct)
-      FIELD(mask)
-      FIELD(multisig_kLRki)
-
-      if (real_output >= outputs.size())
-        return false;
-    END_SERIALIZE()
   };
 
   struct tx_destination_entry
@@ -333,12 +240,6 @@ namespace cryptonote
 
     tx_destination_entry() : amount(0), addr(AUTO_VAL_INIT(addr)), is_subaddress(false) { }
     tx_destination_entry(uint64_t a, const account_public_address &ad, bool is_subaddress) : amount(a), addr(ad), is_subaddress(is_subaddress) { }
-
-    BEGIN_SERIALIZE_OBJECT()
-      VARINT_FIELD(amount)
-      FIELD(addr)
-      FIELD(is_subaddress)
-    END_SERIALIZE()
   };
 ```
 
@@ -349,7 +250,7 @@ namespace cryptonote
 typedef std::pair<crypto::hash, uint64_t> tx_out_index;
 ```
 
-```
+```cpp
 struct output_data_t
 {
   crypto::public_key pubkey;       //!< the output's public key (for spend verification)
