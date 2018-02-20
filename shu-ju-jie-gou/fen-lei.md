@@ -166,7 +166,7 @@ typedef boost::variant<txout_to_script, txout_to_scripthash, txout_to_key> txout
   };
 ```
 
-```
+```cpp
 namespace cryptonote
 {
   struct tx_extra_padding
@@ -214,7 +214,7 @@ namespace cryptonote
 }
 ```
 
-```
+```cpp
   struct tx_source_entry
   {
     typedef std::pair<uint64_t, rct::ctkey> output_entry;
