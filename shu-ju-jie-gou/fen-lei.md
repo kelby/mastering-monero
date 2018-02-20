@@ -1,6 +1,6 @@
 ## block
 
-```
+```cpp
   struct block: public block_header
   {
   private:
@@ -25,7 +25,7 @@
 
 ## block\_header
 
-```
+```cpp
   struct block_header
   {
     uint8_t major_version;
@@ -38,7 +38,7 @@
 
 ## transaction
 
-```
+```cpp
   class transaction: public transaction_prefix
   {
   private:
@@ -72,7 +72,7 @@
 
 ## transaction\_prefix
 
-```
+```cpp
   class transaction_prefix
   {
 
@@ -109,7 +109,7 @@ typedef boost::variant<txin_gen, txin_to_script, txin_to_scripthash, txin_to_key
 
 ## inputs
 
-```
+```cpp
   struct txin_gen
   {
     size_t height;
@@ -146,7 +146,7 @@ typedef boost::variant<txout_to_script, txout_to_scripthash, txout_to_key> txout
 
 ## outputs
 
-```
+```cpp
   struct txout_to_script
   {
     std::vector<crypto::public_key> keys;
