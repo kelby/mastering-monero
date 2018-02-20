@@ -140,10 +140,6 @@ typedef struct {
 
     struct multisig_out {
         std::vector<key> c; // for all inputs
-
-        BEGIN_SERIALIZE_OBJECT()
-          FIELD(c)
-        END_SERIALIZE()
     };
 
     //data for passing the amount to the receiver secretly
@@ -156,12 +152,6 @@ typedef struct {
         key mask;
         key amount;
         key senderPk;
-
-        BEGIN_SERIALIZE_OBJECT()
-          FIELD(mask)
-          FIELD(amount)
-          // FIELD(senderPk) // not serialized, as we do not use it in monero currently
-        END_SERIALIZE()
     };
 
     //containers for representing amounts
@@ -186,12 +176,6 @@ typedef struct {
         keyM ss;
         key cc;
         keyV II;
-
-        BEGIN_SERIALIZE_OBJECT()
-            FIELD(ss)
-            FIELD(cc)
-            // FIELD(II) - not serialized, it can be reconstructed
-        END_SERIALIZE()
     };
     //contains the data for an Borromean sig
     // also contains the "Ci" values such that
@@ -202,11 +186,6 @@ typedef struct {
     struct rangeSig {
         boroSig asig;
         key64 Ci;
-
-        BEGIN_SERIALIZE_OBJECT()
-            FIELD(asig)
-            FIELD(Ci)
-        END_SERIALIZE()
     };
 
     struct Bulletproof
@@ -220,25 +199,6 @@ typedef struct {
       Bulletproof() {}
       Bulletproof(const rct::key &V, const rct::key &A, const rct::key &S, const rct::key &T1, const rct::key &T2, const rct::key &taux, const rct::key &mu, const rct::keyV &L, const rct::keyV &R, const rct::key &a, const rct::key &b, const rct::key &t):
         V({V}), A(A), S(S), T1(T1), T2(T2), taux(taux), mu(mu), L(L), R(R), a(a), b(b), t(t) {}
-
-      BEGIN_SERIALIZE_OBJECT()
-        // Commitments aren't saved, they're restored via outPk
-        // FIELD(V)
-        FIELD(A)
-        FIELD(S)
-        FIELD(T1)
-        FIELD(T2)
-        FIELD(taux)
-        FIELD(mu)
-        FIELD(L)
-        FIELD(R)
-        FIELD(a)
-        FIELD(b)
-        FIELD(t)
-
-        if (L.empty() || L.size() != R.size())
-          return false;
-      END_SERIALIZE()
     };
 
     //A container to hold all signatures necessary for RingCT
@@ -264,157 +224,11 @@ typedef struct {
         std::vector<ecdhTuple> ecdhInfo;
         ctkeyV outPk;
         xmr_amount txnFee; // contains b
-
-        template<bool W, template <bool> class Archive>
-        bool serialize_rctsig_base(Archive<W> &ar, size_t inputs, size_t outputs)
-        {
-          FIELD(type)
-          if (type == RCTTypeNull)
-            return true;
-          if (type != RCTTypeFull && type != RCTTypeFullBulletproof && type != RCTTypeSimple && type != RCTTypeSimpleBulletproof)
-            return false;
-          VARINT_FIELD(txnFee)
-          // inputs/outputs not saved, only here for serialization help
-          // FIELD(message) - not serialized, it can be reconstructed
-          // FIELD(mixRing) - not serialized, it can be reconstructed
-          if (type == RCTTypeSimple || type == RCTTypeSimpleBulletproof)
-          {
-            ar.tag("pseudoOuts");
-            ar.begin_array();
-            PREPARE_CUSTOM_VECTOR_SERIALIZATION(inputs, pseudoOuts);
-            if (pseudoOuts.size() != inputs)
-              return false;
-            for (size_t i = 0; i < inputs; ++i)
-            {
-              FIELDS(pseudoOuts[i])
-              if (inputs - i > 1)
-                ar.delimit_array();
-            }
-            ar.end_array();
-          }
-
-          ar.tag("ecdhInfo");
-          ar.begin_array();
-          PREPARE_CUSTOM_VECTOR_SERIALIZATION(outputs, ecdhInfo);
-          if (ecdhInfo.size() != outputs)
-            return false;
-          for (size_t i = 0; i < outputs; ++i)
-          {
-            FIELDS(ecdhInfo[i])
-            if (outputs - i > 1)
-              ar.delimit_array();
-          }
-          ar.end_array();
-
-          ar.tag("outPk");
-          ar.begin_array();
-          PREPARE_CUSTOM_VECTOR_SERIALIZATION(outputs, outPk);
-          if (outPk.size() != outputs)
-            return false;
-          for (size_t i = 0; i < outputs; ++i)
-          {
-            FIELDS(outPk[i].mask)
-            if (outputs - i > 1)
-              ar.delimit_array();
-          }
-          ar.end_array();
-          return true;
-        }
     };
     struct rctSigPrunable {
         std::vector<rangeSig> rangeSigs;
         std::vector<Bulletproof> bulletproofs;
         std::vector<mgSig> MGs; // simple rct has N, full has 1
-
-        template<bool W, template <bool> class Archive>
-        bool serialize_rctsig_prunable(Archive<W> &ar, uint8_t type, size_t inputs, size_t outputs, size_t mixin)
-        {
-          if (type == RCTTypeNull)
-            return true;
-          if (type != RCTTypeFull && type != RCTTypeFullBulletproof && type != RCTTypeSimple && type != RCTTypeSimpleBulletproof)
-            return false;
-          if (type == RCTTypeSimpleBulletproof || type == RCTTypeFullBulletproof)
-          {
-            ar.tag("bp");
-            ar.begin_array();
-            PREPARE_CUSTOM_VECTOR_SERIALIZATION(outputs, bulletproofs);
-            if (bulletproofs.size() != outputs)
-              return false;
-            for (size_t i = 0; i < outputs; ++i)
-            {
-              FIELDS(bulletproofs[i])
-              if (outputs - i > 1)
-                ar.delimit_array();
-            }
-            ar.end_array();
-          }
-          else
-          {
-            ar.tag("rangeSigs");
-            ar.begin_array();
-            PREPARE_CUSTOM_VECTOR_SERIALIZATION(outputs, rangeSigs);
-            if (rangeSigs.size() != outputs)
-              return false;
-            for (size_t i = 0; i < outputs; ++i)
-            {
-              FIELDS(rangeSigs[i])
-              if (outputs - i > 1)
-                ar.delimit_array();
-            }
-            ar.end_array();
-          }
-
-          ar.tag("MGs");
-          ar.begin_array();
-          // we keep a byte for size of MGs, because we don't know whether this is
-          // a simple or full rct signature, and it's starting to annoy the hell out of me
-          size_t mg_elements = (type == RCTTypeSimple || type == RCTTypeSimpleBulletproof) ? inputs : 1;
-          PREPARE_CUSTOM_VECTOR_SERIALIZATION(mg_elements, MGs);
-          if (MGs.size() != mg_elements)
-            return false;
-          for (size_t i = 0; i < mg_elements; ++i)
-          {
-            // we save the MGs contents directly, because we want it to save its
-            // arrays and matrices without the size prefixes, and the load can't
-            // know what size to expect if it's not in the data
-            ar.begin_object();
-            ar.tag("ss");
-            ar.begin_array();
-            PREPARE_CUSTOM_VECTOR_SERIALIZATION(mixin + 1, MGs[i].ss);
-            if (MGs[i].ss.size() != mixin + 1)
-              return false;
-            for (size_t j = 0; j < mixin + 1; ++j)
-            {
-              ar.begin_array();
-              size_t mg_ss2_elements = ((type == RCTTypeSimple || type == RCTTypeSimpleBulletproof) ? 1 : inputs) + 1;
-              PREPARE_CUSTOM_VECTOR_SERIALIZATION(mg_ss2_elements, MGs[i].ss[j]);
-              if (MGs[i].ss[j].size() != mg_ss2_elements)
-                return false;
-              for (size_t k = 0; k < mg_ss2_elements; ++k)
-              {
-                FIELDS(MGs[i].ss[j][k])
-                if (mg_ss2_elements - k > 1)
-                  ar.delimit_array();
-              }
-              ar.end_array();
-
-              if (mixin + 1 - j > 1)
-                ar.delimit_array();
-            }
-            ar.end_array();
-
-            ar.tag("cc");
-            FIELDS(MGs[i].cc)
-            // MGs[i].II not saved, it can be reconstructed
-            ar.end_object();
-
-            if (mg_elements - i > 1)
-               ar.delimit_array();
-          }
-          ar.end_array();
-          return true;
-        }
-
     };
     struct rctSig: public rctSigBase {
         rctSigPrunable p;
