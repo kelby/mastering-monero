@@ -1,4 +1,4 @@
-```
+```cpp
   struct account_keys
   {
     account_public_address m_account_address;
@@ -8,7 +8,7 @@
   };
 ```
 
-```
+```cpp
   struct public_address_outer_blob
   {
     uint8_t m_ver;
@@ -24,7 +24,7 @@
   };
 ```
 
-```
+```cpp
   struct address_parse_info
   {
     account_public_address address;
@@ -34,14 +34,14 @@
   };
 ```
 
-```
+```cpp
   struct integrated_address {
     account_public_address adr;
     crypto::hash8 payment_id;
   };
 ```
 
-```
+```cpp
   struct subaddress_receive_info
   {
     subaddress_index index;
@@ -49,23 +49,20 @@
   };
 ```
 
-```
+```cpp
 namespace cryptonote
 {
   struct subaddress_index
   {
     uint32_t major;
     uint32_t minor;
-    bool operator==(const subaddress_index& rhs) const { return !memcmp(this, &rhs, sizeof(subaddress_index)); }
-    bool operator!=(const subaddress_index& rhs) const { return !(*this == rhs); }
-    bool is_zero() const { return major == 0 && minor == 0; }
   };
 }
 ```
 
 ## wallet2
 
-```
+```cpp
     struct multisig_info
     {
       struct LR
@@ -90,7 +87,7 @@ namespace cryptonote
       bool error;
       boost::optional<cryptonote::subaddress_receive_info> received;
 
-      tx_scan_info_t(): money_transfered(0), error(true) {}
+
     };
 
     struct transfer_details
@@ -117,25 +114,7 @@ namespace cryptonote
       uint64_t amount() const { return m_amount; }
       const crypto::public_key &get_public_key() const { return boost::get<const cryptonote::txout_to_key>(m_tx.vout[m_internal_output_index].target).key; }
 
-      BEGIN_SERIALIZE_OBJECT()
-        FIELD(m_block_height)
-        FIELD(m_tx)
-        FIELD(m_txid)
-        FIELD(m_internal_output_index)
-        FIELD(m_global_output_index)
-        FIELD(m_spent)
-        FIELD(m_spent_height)
-        FIELD(m_key_image)
-        FIELD(m_mask)
-        FIELD(m_amount)
-        FIELD(m_rct)
-        FIELD(m_key_image_known)
-        FIELD(m_pk_index)
-        FIELD(m_subaddr_index)
-        FIELD(m_key_image_partial)
-        FIELD(m_multisig_k)
-        FIELD(m_multisig_info)
-      END_SERIALIZE()
+
     };
 
     struct payment_details
@@ -207,19 +186,6 @@ namespace cryptonote
       std::vector<cryptonote::tx_destination_entry> dests; // original setup, does not include change
       uint32_t subaddr_account;   // subaddress account of your wallet to be used in this transfer
       std::set<uint32_t> subaddr_indices;  // set of address indices used as inputs in this transfer
-
-      BEGIN_SERIALIZE_OBJECT()
-        FIELD(sources)
-        FIELD(change_dts)
-        FIELD(splitted_dsts)
-        FIELD(selected_transfers)
-        FIELD(extra)
-        FIELD(unlock_time)
-        FIELD(use_rct)
-        FIELD(dests)
-        FIELD(subaddr_account)
-        FIELD(subaddr_indices)
-      END_SERIALIZE()
     };
 
     typedef std::vector<transfer_details> transfer_container;
@@ -251,21 +217,6 @@ namespace cryptonote
       std::vector<multisig_sig> multisig_sigs;
 
       tx_construction_data construction_data;
-
-      BEGIN_SERIALIZE_OBJECT()
-        FIELD(tx)
-        FIELD(dust)
-        FIELD(fee)
-        FIELD(dust_added_to_fee)
-        FIELD(change_dts)
-        FIELD(selected_transfers)
-        FIELD(key_images)
-        FIELD(tx_key)
-        FIELD(additional_tx_keys)
-        FIELD(dests)
-        FIELD(construction_data)
-        FIELD(multisig_sigs)
-      END_SERIALIZE()
     };
 
     // The term "Unsigned tx" is not really a tx since it's not signed yet.
@@ -286,33 +237,18 @@ namespace cryptonote
     {
       std::vector<pending_tx> m_ptx;
       std::unordered_set<crypto::public_key> m_signers;
-
-      BEGIN_SERIALIZE_OBJECT()
-        FIELD(m_ptx)
-        FIELD(m_signers)
-      END_SERIALIZE()
     };
 
     struct keys_file_data
     {
       crypto::chacha_iv iv;
       std::string account_data;
-
-      BEGIN_SERIALIZE_OBJECT()
-        FIELD(iv)
-        FIELD(account_data)
-      END_SERIALIZE()
     };
 
     struct cache_file_data
     {
       crypto::chacha_iv iv;
       std::string cache_data;
-
-      BEGIN_SERIALIZE_OBJECT()
-        FIELD(iv)
-        FIELD(cache_data)
-      END_SERIALIZE()
     };
 
     // GUI Address book

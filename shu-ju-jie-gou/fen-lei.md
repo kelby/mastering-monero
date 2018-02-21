@@ -69,13 +69,13 @@
 
 ## txin\_v
 
-```
+```cpp
 typedef boost::variant<txin_gen, txin_to_script, txin_to_scripthash, txin_to_key> txin_v;
 ```
 
 ## tx\_out
 
-```
+```cpp
   struct tx_out
   {
     uint64_t amount;
@@ -116,7 +116,7 @@ typedef boost::variant<txin_gen, txin_to_script, txin_to_scripthash, txin_to_key
 
 ## txout\_target\_v
 
-```
+```cpp
 typedef boost::variant<txout_to_script, txout_to_scripthash, txout_to_key> txout_target_v;
 ```
 
@@ -136,8 +136,6 @@ typedef boost::variant<txout_to_script, txout_to_scripthash, txout_to_key> txout
 
   struct txout_to_key
   {
-    txout_to_key() { }
-    txout_to_key(const crypto::public_key &_key) : key(_key) { }
     crypto::public_key key;
   };
 ```
@@ -204,8 +202,6 @@ namespace cryptonote
     bool rct;                           //true if the output is rct
     rct::key mask;                      //ringct amount mask
     rct::multisig_kLRki multisig_kLRki; //multisig info
-
-    void push_output(uint64_t idx, const crypto::public_key &k, uint64_t amount) { outputs.push_back(std::make_pair(idx, rct::ctkey({rct::pk2rct(k), rct::zeroCommit(amount)}))); }
   };
 
   struct tx_destination_entry
@@ -213,9 +209,6 @@ namespace cryptonote
     uint64_t amount;                    //money
     account_public_address addr;        //destination address
     bool is_subaddress;
-
-    tx_destination_entry() : amount(0), addr(AUTO_VAL_INIT(addr)), is_subaddress(false) { }
-    tx_destination_entry(uint64_t a, const account_public_address &ad, bool is_subaddress) : amount(a), addr(ad), is_subaddress(is_subaddress) { }
   };
 ```
 
