@@ -85,9 +85,6 @@
     std::vector<tx_out> vout;
     //extra
     std::vector<uint8_t> extra;
-
-  public:
-    transaction_prefix(){}
   };
 ```
 
