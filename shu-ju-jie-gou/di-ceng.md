@@ -1,6 +1,6 @@
 ## crypto
 
-```
+```cpp
   POD_CLASS hash {
     char data[HASH_SIZE];
   };
@@ -9,7 +9,7 @@
   };
 ```
 
-```
+```cpp
   POD_CLASS ec_point {
     char data[32];
   };
@@ -54,7 +54,7 @@
   };
 ```
 
-```
+```cpp
 /* From fe.h */
 
 typedef int32_t fe[10];
@@ -97,7 +97,7 @@ typedef struct {
 
 ## rct
 
-```
+```cpp
     //basic ops containers
     typedef unsigned char * Bytes;
 
@@ -226,7 +226,7 @@ typedef struct {
 
 ## cryptonote
 
-```
+```cpp
   struct keypair
   {
     crypto::public_key pub;
@@ -241,11 +241,11 @@ typedef struct {
   };
 ```
 
-```
+```cpp
   typedef std::vector<crypto::signature> ring_signature;
 ```
 
-```
+```cpp
 {
   typedef std::string blobdata;
 }
