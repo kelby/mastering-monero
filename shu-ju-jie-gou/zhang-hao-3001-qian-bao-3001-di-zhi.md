@@ -69,7 +69,6 @@ namespace cryptonote
       {
         rct::key m_L;
         rct::key m_R;
-
       };
 
       crypto::public_key m_signer;
@@ -86,8 +85,6 @@ namespace cryptonote
       uint64_t money_transfered;
       bool error;
       boost::optional<cryptonote::subaddress_receive_info> received;
-
-
     };
 
     struct transfer_details
@@ -109,12 +106,6 @@ namespace cryptonote
       bool m_key_image_partial;
       std::vector<rct::key> m_multisig_k;
       std::vector<multisig_info> m_multisig_info; // one per other participant
-
-      bool is_rct() const { return m_rct; }
-      uint64_t amount() const { return m_amount; }
-      const crypto::public_key &get_public_key() const { return boost::get<const cryptonote::txout_to_key>(m_tx.vout[m_internal_output_index].target).key; }
-
-
     };
 
     struct payment_details
