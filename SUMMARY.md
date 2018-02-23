@@ -23,6 +23,7 @@
   * [Features](cryptonote/features.md)
   * [Inside](cryptonote/inside.md)
   * [Wiki](cryptonote/wiki.md)
+  * [whitepaper](cryptonote/whitepaper.md)
 * [附录](fu-lu-1.md)
 * [数据存储](shu-ju-cun-chu.md)
 * [助记词](zhu-ji-ci.md)
