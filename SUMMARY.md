@@ -17,6 +17,8 @@
 * [挖矿与共识](wa-kuang-yu-gong-shi.md)
   * [算法介绍](wa-kuang-yu-gong-shi/suan-fa-jie-shao.md)
   * [算法背景](wa-kuang-yu-gong-shi/suan-fa-bei-jing.md)
+  * [挖矿软件](wa-kuang-yu-gong-shi/kuang-gong.md)
+  * [矿池](wa-kuang-yu-gong-shi/kuang-chi.md)
 * [门罗币安全](men-luo-bi-an-quan.md)
   * [升级机制](men-luo-bi-an-quan/sheng-ji-ji-zhi.md)
 * [CryptoNote](cryptonote.md)
